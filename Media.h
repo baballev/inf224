@@ -1,7 +1,9 @@
-#include <ostream>
-#include <string>
+#ifndef STREAM
+#define STREAM
 #include <sstream>
 #include <iostream>
+#include <ostream>
+#endif
 
 class Media {
 protected:
@@ -18,6 +20,6 @@ public:
     void setName(std::string _name);
     void setPath(std::string _path);
     virtual void print(std::ostream& stream) const;
-    virtual void play() const;
+    virtual void play() const = 0; // Méthode abstraite.
 
 };
