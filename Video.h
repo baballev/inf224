@@ -1,4 +1,5 @@
 #include "Media.h"
+#include <cstdlib>
 #include <ostream>
 
 class Video:public Media{
@@ -15,4 +16,8 @@ public:
     void print(std::ostream& stream) const override {
         stream << name << "- Path: " << path << ", Duration: " << duration << std::endl;
     };
+    void play() const override {
+        std::string concatenated = "mpv " + path + " &"; 
+        std::system(concatenated.c_str());
+    }
 };

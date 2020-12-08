@@ -18,5 +18,6 @@ public:
     void setName(std::string _name);
     void setPath(std::string _path);
     virtual void print(std::ostream& stream) const;
+    virtual void play() const;
 
 };
