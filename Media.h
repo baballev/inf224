@@ -1,14 +1,19 @@
-
+#include <string>
 
 class Media {
 private:
-    string name = "media";
-    string pathname = "./";
+    std::string name = "media";
+    std::string path = "./";
 public:
     Media();
-    Media(string _path, string _name);
+    Media(std::string _path, std::string _name);
 
-    string getName();
-    string getPath();
+    ~Media();
+
+    std::string getName();
+    std::string getPath();
+    void setName(std::string name);
+    void setPath(std::string path);
+
 
 };
