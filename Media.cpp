@@ -1,5 +1,6 @@
 #include "Media.h"
 
+
 Media::Media(std::string _path, std::string _name){
     path = _path;
     name = _name;
@@ -14,8 +15,12 @@ Media::~Media(){
 }
 
 
-std::string Media::getPath(){
+std::string Media::getPath() const{
     return path;
+}
+
+std::string Media::getName() const{
+    return name;
 }
 
 void Media::setName(std::string _name){
@@ -24,4 +29,8 @@ void Media::setName(std::string _name){
 
 void Media::setPath(std::string _path){
     path = _path;
+}
+
+void Media::print(std::ostream& stream) const{
+    stream << "Media - Name: " << name << ", Path: " << path << std::endl;
 }
