@@ -10,7 +10,7 @@
 
 using namespace std;
 
-void print_media(Media ** media_array, unsigned int length){
+void print_medias(Media ** media_array, unsigned int length){
     for(unsigned int k = 0; k<length; k++){
         media_array[k]->print(std::cout);
     }
@@ -34,8 +34,7 @@ int main(int argc, const char* argv[])
     medias[3] = new Video(0.4, "super vidéo3", "./super_video3.mp4");
     medias[4] = new Image(1920, 1080, "super imageHD", "./super_imageHD.jpg");
 
-
-    print_media(medias, 5);
+    print_medias(medias, 5);
 
 
     return 0;
