@@ -12,7 +12,7 @@ protected:
 public:
     Media(); // 2 constructeurs + destructeur
     Media(std::string _path, std::string _name);
-    ~Media();
+    virtual ~Media();
 
     // Getters, Setters & Printer
     std::string getName() const;

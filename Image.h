@@ -26,7 +26,8 @@ public:
         height = _height;
         name = _name;
         path = _path;
-    }
+    };
+    ~Image(){};
 
     int getWidth() const{ return width; };
     int getHeight() const { return height; };

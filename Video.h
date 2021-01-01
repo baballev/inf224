@@ -24,8 +24,8 @@ public:
         duration = _duration;
         name = _name;
         path = _path;
-    }
-
+    };
+    ~Video(){};
     float getDuration() const{ return duration; };
     void setDuration(float _duration) { duration = _duration;};
     void print(std::ostream& stream) const override {
