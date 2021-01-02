@@ -36,6 +36,21 @@ public:
         name = _name;
         path = _path;
     };
+    Film(const Film& _film):Video(_film){
+        for (int k = 0; k<_film.timestamps_num; k++){
+            timestamps[k] = _film.timestamps[k];
+        }
+        timestamps_num = _film.timestamps_num;
+    };
+    Film& operator=(const Film& _film){
+        Video::operator=(_film);
+       for (int k = 0; k<_film.timestamps_num; k++){
+            timestamps[k] = _film.timestamps[k];
+        }
+        timestamps_num = _film.timestamps_num; 
+
+        return *this;
+    };
     ~Film(){
         delete[] timestamps;
     };

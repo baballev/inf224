@@ -59,5 +59,13 @@ int main(int argc, const char* argv[])
     film->print(std::cout);
     const double * t3 = film->getTimestamps();
 
+    // Etape 7
+    delete[] t3;
+    delete[] t2;
+    delete[] t;
+    film->print(std::cout);
+    
+
+
     return 0;
 }
