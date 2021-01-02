@@ -16,7 +16,7 @@
 #endif
 
 class Video:public Media{
-private:
+protected:
     float duration = 0.0;
 
 public:
