@@ -14,3 +14,9 @@ En *C++*, il est nécessaire d'implémenter dans les classes filles (non-abstrai
 ### Etape 6:
 Pour que l'objet Film ait le plein contrôle de ses données, il faut ne pas copier le pointeur correspondant au tableau mais créer un nouveau tableau à partir du tableau passé en argument sous forme de pointeur en copiant ses données. Ainsi, l'adresse de l'attribut privé de l'objet est différente de celle du tableau passé en argument et ne peut donc pas être modifié à l'extérieur de l'objet. 
 Pour éviter des problèmes d'encapsulation dû au getter du tableau de timestamps, il suffit de retourner un const double\* à la place d'un double \*  qui est read-only.
+  
+### Etape 7:
+Puisque l'objet film contient un tableau, si l'on détruit l'objet de manière naïve, seule l'adresse du premier élement du tableau sera supprimée en mémoire. Pour bien faire les choses, il faut demander à delete le contenu du tableau. Pour ce faire, on utilise la directive delete[] timestamps; dans le destructeur de Film.
+Pour la copie, il peut y avoir des porblèmes puisque une shallow copy va seulement copier l'adresse du premier élément du tableau et donc casser le principe d'encapsulation. On doit donc faire une deep copy en prenant soin de copier les éléments du tableau timestamps dans le nouvel objet qui seront alloués à une nouvelle adresse, dans un nouveau tableau.
+
+
