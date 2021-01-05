@@ -1,14 +1,6 @@
-#ifndef MEDIA
-#define MEDIA
+
 #include "Media.h"
-#include <iostream>
-#endif
-
-#ifndef VIDEO
-#define VIDEO
 #include "Video.h"
-#endif
-
 #include "Image.h"
 #include "Film.h"
 
@@ -34,9 +26,9 @@ int main(int argc, const char* argv[])
     // Etape 5 - Traitement Générique
     Media ** medias = new Media *[5];
     medias[0] = new Image(512, 512, "super image", "./super_image.jpg");
-    medias[1] = new Video(12.1, "super vidéo", "./super_video.mp4");
-    medias[2] = new Video(14.7, "super vidéo2", "./super_video2.mp4");
-    medias[3] = new Video(0.4, "super vidéo3", "./super_video3.mp4");
+    medias[1] = new Video("super vidéo", "./super_video.mp4", 12.41);
+    medias[2] = new Video("super vidéo2", "./super_video2.mp4", 14.7);
+    medias[3] = new Video("super vidéo3", "./super_video3.mp4", 0.7);
     medias[4] = new Image(1920, 1080, "super imageHD", "./super_imageHD.jpg");
     print_medias(medias, 5);
     delete[] medias;
@@ -60,12 +52,11 @@ int main(int argc, const char* argv[])
     const double * t3 = film->getTimestamps();
 
     // Etape 7
-    delete[] t3;
+    //delete[] t3;
     delete[] t2;
     delete[] t;
     film->print(std::cout);
-    
 
-
+    delete film;
     return 0;
 }

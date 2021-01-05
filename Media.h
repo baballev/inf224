@@ -1,9 +1,11 @@
-#ifndef STREAM
-#define STREAM
 #include <sstream>
 #include <iostream>
 #include <ostream>
-#endif
+
+#ifndef MEDIA
+#define MEDIA
+
+
 
 class Media {
 protected:
@@ -23,3 +25,5 @@ public:
     virtual void play() const = 0; // Méthode abstraite.
 
 };
+
+#endif

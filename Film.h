@@ -1,40 +1,25 @@
-#ifndef MEDIA
-#define MEDIA
 #include "Media.h"
-#endif
-
-#ifndef CSTD
-#define CSTD
-#include <cstdlib>
-#endif
-
-#ifndef STREAM
-#define STREAM
-#include <sstream>
-#include <iostream>
-#include <ostream>
-#endif
-
-#ifndef VIDEO
-#define VIDEO
 #include "Video.h"
-#endif
+
+#ifndef FILM
+#define FILM
+
 
 class Film:public Video{
 private:
-    double * timestamps = new double[10];
-    int timestamps_num = 10;
+    double * timestamps = nullptr;
+    int timestamps_num = 0;
 
 public:
     Film(double * _timestamps, int _timestamps_num, float _duration, std::string _name, std::string _path){
-        timestamps = new double[_timestamps_num];
+        timestamps = new double[_timestamps_num]; // TODO use setTimestamps
         for (int k = 0; k<_timestamps_num; k++){
             timestamps[k] = _timestamps[k];
         }
         timestamps_num = _timestamps_num;
         duration = _duration;
-        name = _name;
-        path = _path;
+        name = _name; // TODO
+        path = _path; //TODO
     };
     Film(const Film& _film):Video(_film){
         for (int k = 0; k<_film.timestamps_num; k++){
@@ -54,13 +39,17 @@ public:
     ~Film(){
         delete[] timestamps;
     };
+
     const double * getTimestamps() {
         return timestamps;
-    }; //TODO: CHECK THAT CONST ACTUALLY PROTECTS FROM MODIFICATIONS
+    }; 
+
     int getTimestampsNum() const{
         return timestamps_num;
     };  
-    void setTimestamps(double * _timestamps, int _length) {
+    void setTimestamps(const double * _timestamps, int _length) {
+        delete[] timestamps;
+        // TODO check length > 0
         timestamps = new double[_length];
         for (int k = 0; k<_length; k++){
             timestamps[k] = _timestamps[k];
@@ -68,15 +57,13 @@ public:
         timestamps_num = _length;
     };
 
-    void print(std::ostream & stream) const override{
+    void print(std::ostream & stream) const override{ // Call parent print
         stream << name << " - Path: " << path << ", Duration: " << duration << std::endl;
         stream << "Timestamps: " << std::endl;
         for(int k = 0; k<timestamps_num; k++){
             stream << timestamps[k] << std::endl;
         }
     };
-
-    //Film(const Film& film) = delete;
-    //Film& operator=(const Film& film) = delete;
-
 };
+
+#endif
