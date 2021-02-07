@@ -3,7 +3,8 @@
 #include "Video.h"
 #include "Image.h"
 #include "Film.h"
-
+#include "Group.h"
+#include <iostream>
 
 using namespace std;
 
@@ -12,6 +13,75 @@ void print_medias(Media ** media_array, unsigned int length){
         media_array[k]->print(std::cout);
     }
 }
+
+
+// TODELETE, TESTS
+class Point{
+private:
+    int x = 0;
+    int y = 0;
+public:
+    Point(int _x, int _y);
+    void get(int * x, int * y) const;
+    void set(int _x, int _y);
+    static void useless_test();
+};
+
+Point::Point(int _x, int _y){
+    x = _x;
+    y = _y;
+}
+void Point::set(int _x, int _y){
+    x = _x;
+    y = _y;
+    std::cout << "Point's x = " << x << " , Point's y = " << y <<std::endl;
+}
+void Point::useless_test(){
+    std::cout << "Test successful." << std::endl;
+
+}
+void Point::get(int * _x, int * _y) const{
+    *_x = x;
+    *_y = y; 
+}
+
+
+#include <iostream>
+
+class X {
+public:
+    virtual char foo() { return 'x'; }
+};
+
+class Y : public X {
+public:
+    char foo() override { return 'y'; }
+};
+
+
+#include <iostream>
+
+ class Object {
+public:
+   virtual ~Object() {} 
+   Object();
+   virtual void draw();
+};
+ 
+ class Line : public Object {
+ public:
+     void draw() {std::cout << "draw" << std::endl;} 
+     Line() {};
+     virtual ~Line();
+ };
+ 
+ void drawObject(Object * obj) { 
+     obj->draw();
+ }
+
+// TODELETE UNTIL THIS LINE
+
+
 
 int main(int argc, const char* argv[])
 {
@@ -31,7 +101,6 @@ int main(int argc, const char* argv[])
     medias[3] = new Video("super vidéo3", "./super_video3.mp4", 0.7);
     medias[4] = new Image(1920, 1080, "super imageHD", "./super_imageHD.jpg");
     print_medias(medias, 5);
-    delete[] medias;
     
     // Etape 6
     double * t = new double[3];
@@ -58,5 +127,24 @@ int main(int argc, const char* argv[])
     film->print(std::cout);
 
     delete film;
+
+    // Etape 8
+    std::cout << "Etape 8" << std::endl;
+
+    Group * g1 = new Group("Groupe 1");
+    Group * g2 = new Group("Groupe 2");
+
+    g1->push_back(medias[0]);
+    g1->push_back(medias[1]);
+    g1->push_back(medias[2]);
+    g2->push_back(medias[1]);
+    g2->push_back(medias[3]);
+
+    g1->print(std::cout);
+    g2->print(std::cout);
+    
+    delete[] medias;
+
+
     return 0;
 }
