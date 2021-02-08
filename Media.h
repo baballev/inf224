@@ -1,6 +1,8 @@
 #include <sstream>
 #include <iostream>
 #include <ostream>
+#include <memory>
+
 
 #ifndef MEDIA
 #define MEDIA
@@ -25,5 +27,8 @@ public:
     virtual void play() const = 0; // Méthode abstraite.
 
 };
+typedef std::shared_ptr<Media> MediaPtr;
+
+
 
 #endif

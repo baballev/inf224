@@ -8,79 +8,12 @@
 
 using namespace std;
 
+
 void print_medias(Media ** media_array, unsigned int length){
     for(unsigned int k = 0; k<length; k++){
         media_array[k]->print(std::cout);
     }
 }
-
-
-// TODELETE, TESTS
-class Point{
-private:
-    int x = 0;
-    int y = 0;
-public:
-    Point(int _x, int _y);
-    void get(int * x, int * y) const;
-    void set(int _x, int _y);
-    static void useless_test();
-};
-
-Point::Point(int _x, int _y){
-    x = _x;
-    y = _y;
-}
-void Point::set(int _x, int _y){
-    x = _x;
-    y = _y;
-    std::cout << "Point's x = " << x << " , Point's y = " << y <<std::endl;
-}
-void Point::useless_test(){
-    std::cout << "Test successful." << std::endl;
-
-}
-void Point::get(int * _x, int * _y) const{
-    *_x = x;
-    *_y = y; 
-}
-
-
-#include <iostream>
-
-class X {
-public:
-    virtual char foo() { return 'x'; }
-};
-
-class Y : public X {
-public:
-    char foo() override { return 'y'; }
-};
-
-
-#include <iostream>
-
- class Object {
-public:
-   virtual ~Object() {} 
-   Object();
-   virtual void draw();
-};
- 
- class Line : public Object {
- public:
-     void draw() {std::cout << "draw" << std::endl;} 
-     Line() {};
-     virtual ~Line();
- };
- 
- void drawObject(Object * obj) { 
-     obj->draw();
- }
-
-// TODELETE UNTIL THIS LINE
-
 
 
 int main(int argc, const char* argv[])
@@ -118,7 +51,7 @@ int main(int argc, const char* argv[])
     t2[4] = 113.5;
     film->setTimestamps(t2, 5);
     film->print(std::cout);
-    const double * t3 = film->getTimestamps();
+    //const double * t3 = film->getTimestamps();
 
     // Etape 7
     //delete[] t3;
@@ -130,10 +63,10 @@ int main(int argc, const char* argv[])
 
     // Etape 8
     std::cout << "Etape 8" << std::endl;
-
+    /*
     Group * g1 = new Group("Groupe 1");
     Group * g2 = new Group("Groupe 2");
-
+    
     g1->push_back(medias[0]);
     g1->push_back(medias[1]);
     g1->push_back(medias[2]);
@@ -144,6 +77,29 @@ int main(int argc, const char* argv[])
     g2->print(std::cout);
     
     delete[] medias;
+    delete g1;
+    delete g2;
+    */
+    // Etape 9
+    std::cout << "Etape 9" << std::endl;
+
+    Group * g11 = new Group("Groupe 1");
+    Group * g22 = new Group("Groupe 2");
+
+    ImagePtr mega_image1 = ImagePtr(new Image(50, 50, "mega image1", "./mega_image1.png"));
+    ImagePtr mega_image2 = ImagePtr(new Image(50, 50, "mega image2", "./mega_image2.png"));
+    VideoPtr mega_video1 = VideoPtr(new Video("mega_video1", "./mega_video1", 1.7));
+    VideoPtr mega_video2 = VideoPtr(new Video("mega_video2", "./mega_video2", 1.7));
+
+    g11->push_back(mega_image1);
+    g11->push_back(mega_image2);
+    g11->push_back(mega_video1);
+    g22->push_back(mega_image1);
+    g22->push_back(mega_video2);
+
+
+    delete g11;
+    delete g22;
 
 
     return 0;

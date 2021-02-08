@@ -13,7 +13,9 @@ public:
     :Media(_name, _path){
         duration = _duration;
     };
-    ~Video(){};
+    ~Video(){
+        std::cout << "Bye bye " << name << std::endl;
+    };
     float getDuration() const{ return duration; };
     void setDuration(float _duration) { duration = _duration;};
     void print(std::ostream& stream) const override { // TODO chainer
@@ -24,5 +26,8 @@ public:
         std::system(concatenated.c_str());
     }
 };
+
+typedef std::shared_ptr<Video> VideoPtr;
+
 
 #endif

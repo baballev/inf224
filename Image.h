@@ -3,6 +3,7 @@
 #ifndef IMAGE
 #define IMAGE
 
+
 class Image:public Media{
 private:
     int width = 0;
@@ -15,7 +16,9 @@ public:
         height = _height;
 
     };
-    ~Image(){};
+    ~Image(){
+        std::cout << "Bye bye " << name << std::endl;
+    };
 
     int getWidth() const{ return width; };
     int getHeight() const { return height; };
@@ -30,5 +33,8 @@ public:
         std::system(concatenated.c_str());
     }
 };
+
+typedef std::shared_ptr<Image> ImagePtr;
+
 
 #endif
