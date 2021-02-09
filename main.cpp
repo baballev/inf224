@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "Film.h"
 #include "Group.h"
+#include "Table.h"
 #include <iostream>
 
 using namespace std;
@@ -97,10 +98,19 @@ int main(int argc, const char* argv[])
     g22->push_back(mega_image1);
     g22->push_back(mega_video2);
 
-
     delete g11;
     delete g22;
 
+    // Etape 10
+    std::cout << "Etape 10" << std::endl;
+
+    Table * table = new Table(); 
+    table->createImage(100, 100, "cat", "./cat.png");
+    table->createImage(100, 100, "dog", "./dog.png");
+    table->createVideo(16.7, "ball", "./ball.mp4");
+
+    
+    delete table;
 
     return 0;
 }

@@ -10,7 +10,7 @@ protected:
 
 public:
     Video(std::string _name = "", std::string _path = "", float _duration = 0.0)
-    :Media(_name, _path){
+    :Media(_path, _name){
         duration = _duration;
     };
     ~Video(){

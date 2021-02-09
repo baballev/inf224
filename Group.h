@@ -22,4 +22,7 @@ public:
     }
 
 };
+
+typedef std::shared_ptr<Group> GroupPtr;
+
 #endif
