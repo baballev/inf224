@@ -9,6 +9,9 @@
 #include "tcpserver.h"
 
 #include <iostream>
+#include <ostream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 using namespace cppu;
@@ -23,6 +26,9 @@ void print_medias(Media ** media_array, unsigned int length){
 }
 
 class MyDataBase{
+private:
+  Table * super_table = new Table();
+
 public:
 
 
@@ -32,15 +38,22 @@ public:
 
     // 1) pour decouper la requête:
     // on peut par exemple utiliser stringstream et getline()
-    std::string commande =  request.substr(0, request.find(" "));
-    std::string query = request.substr(1, request.find(" "));
+    std::string new_request = request;
+    std::string commande =  new_request.substr(0, new_request.find(" "));
+    new_request.erase(0, new_request.find(" ") + 1);
+    std::string query = new_request.substr(0, new_request.find(" "));
     std::cout << "Commande: " << commande << std::endl;
     std::cout << "Query: " << query << std::endl;
     if (commande == "play"){
 
     }
     else if (commande == "display") {
-
+      response = super_table->getInfo(query);
+    }
+    else if (commande == "create"){
+      super_table->createImage(100, 100, "cat", "./cat.png");
+      super_table->createImage(100, 100, "dog", "./dog.png");
+      super_table->createVideo(16.7, "ball", "./ball.mp4");
     }
     else {
         

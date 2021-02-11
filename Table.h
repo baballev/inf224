@@ -49,7 +49,16 @@ public:
         else {
             _stream << "Media " << _name << " non trouvé." << std::endl;
         }
-
+    }
+    
+    std::string getInfo(std::string _name){
+        auto it = media_table->find(_name);
+        if (it != media_table->end()){
+            return it->second->getInfo();
+        }
+        else {
+            return "Media " + _name + " non trouvé.";
+        }
     }
 
     void printGroup(std::string _name, std::ostream & _stream){

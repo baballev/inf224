@@ -34,3 +34,8 @@ void Media::print(std::ostream& stream) const{
     stream << "Media - Name: " << name << ", Path: " << path << std::endl;
 }
 
+std::string Media::getInfo() const{
+
+    return "Media - Name: " + name + ", Path: " + path;
+}
+

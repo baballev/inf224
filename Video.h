@@ -21,6 +21,10 @@ public:
     void print(std::ostream& stream) const override { // TODO chainer
         stream << name << " - Path: " << path << ", Duration: " << duration << std::endl;
     };
+    std::string getInfo() const override{
+        return name + " - Path: " + path + ", Duration: " + std::to_string(duration);
+
+    };
     void play() const override {
         std::string concatenated = "mpv " + path + " &"; 
         std::system(concatenated.c_str());

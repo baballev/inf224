@@ -28,6 +28,11 @@ public:
         Media::print(stream);
         stream << "Width: " << width << " , Height: " << height << std::endl;
     };
+    std::string getInfo() const override{
+        return "Width: " + std::to_string(width) + " , Height: " + std::to_string(height) ;
+
+    };
+
     void play() const override {
         std::string concatenated = "imagej " + path + " &"; 
         std::system(concatenated.c_str());
