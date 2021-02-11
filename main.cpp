@@ -5,9 +5,15 @@
 #include "Film.h"
 #include "Group.h"
 #include "Table.h"
+
+#include "tcpserver.h"
+
 #include <iostream>
 
 using namespace std;
+using namespace cppu;
+
+const int PORT = 3331;
 
 
 void print_medias(Media ** media_array, unsigned int length){
@@ -15,6 +21,51 @@ void print_medias(Media ** media_array, unsigned int length){
         media_array[k]->print(std::cout);
     }
 }
+
+class MyDataBase{
+public:
+
+
+  bool processRequest(TCPConnection& cnx, const string& request, string& response)
+  {
+    cerr << "\nRequest: '" << request << "'" << endl;
+
+    // 1) pour decouper la requête:
+    // on peut par exemple utiliser stringstream et getline()
+    std::string commande =  request.substr(0, request.find(" "));
+    std::string query = request.substr(1, request.find(" "));
+    std::cout << "Commande: " << commande << std::endl;
+    std::cout << "Query: " << query << std::endl;
+    if (commande == "play"){
+
+    }
+    else if (commande == "display") {
+
+    }
+    else {
+        
+    }
+    
+    // 2) faire le traitement:
+    // - si le traitement modifie les donnees inclure: TCPLock lock(cnx, true);
+    // - sinon juste: TCPLock lock(cnx);
+
+
+    // 3) retourner la reponse au client:
+    // - pour l'instant ca retourne juste OK suivi de la requête
+    // - pour retourner quelque chose de plus utile on peut appeler la methode print()
+    //   des objets ou des groupes en lui passant en argument un stringstream
+    // - attention, la requête NE DOIT PAS contenir les caractères \n ou \r car
+    //   ils servent à délimiter les messages entre le serveur et le client
+    
+    //response = "OK: " + request;
+    cerr << "response: " << response << endl;
+    
+    // renvoyer false si on veut clore la connexion avec le client
+    return true;
+  }
+
+};
 
 
 int main(int argc, const char* argv[])
@@ -90,7 +141,7 @@ int main(int argc, const char* argv[])
     ImagePtr mega_image1 = ImagePtr(new Image(50, 50, "mega image1", "./mega_image1.png"));
     ImagePtr mega_image2 = ImagePtr(new Image(50, 50, "mega image2", "./mega_image2.png"));
     VideoPtr mega_video1 = VideoPtr(new Video("mega_video1", "./mega_video1", 1.7));
-    VideoPtr mega_video2 = VideoPtr(new Video("mega_video2", "./mega_video2", 1.7));
+    VideoPtr mega_video2 =   VideoPtr(new Video("mega_video2", "./mega_video2", 1.7));
 
     g11->push_back(mega_image1);
     g11->push_back(mega_image2);
@@ -108,9 +159,28 @@ int main(int argc, const char* argv[])
     table->createImage(100, 100, "cat", "./cat.png");
     table->createImage(100, 100, "dog", "./dog.png");
     table->createVideo(16.7, "ball", "./ball.mp4");
-
     
     delete table;
 
+    // Etape 11
+
+  shared_ptr<TCPServer> server(new TCPServer());
+  
+  // cree l'objet qui gère les données
+  shared_ptr<MyDataBase> base(new MyDataBase());
+
+  // le serveur appelera cette méthode chaque fois qu'il y a une requête
+  server->setCallback(*base, &MyDataBase::processRequest);
+  
+  // lance la boucle infinie du serveur
+  cout << "Starting Server on port " << PORT << endl;
+  int status = server->run(PORT);
+  
+  // en cas d'erreur
+  if (status < 0) {
+    cerr << "Could not start Server on port " << PORT << endl;
+    return 1;
+  }
+    
     return 0;
 }
