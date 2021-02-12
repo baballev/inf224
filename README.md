@@ -19,12 +19,20 @@ Pour éviter des problèmes d'encapsulation dû au getter du tableau de timestam
 Puisque l'objet film contient un tableau, si l'on détruit l'objet de manière naïve, seule l'adresse du premier élement du tableau sera supprimée en mémoire. Pour bien faire les choses, il faut demander à delete le contenu du tableau. Pour ce faire, on utilise la directive delete[] timestamps; dans le destructeur de Film.
 Pour la copie, il peut y avoir des porblèmes puisque une shallow copy va seulement copier l'adresse du premier élément du tableau et donc casser le principe d'encapsulation. On doit donc faire une deep copy en prenant soin de copier les éléments du tableau timestamps dans le nouvel objet qui seront alloués à une nouvelle adresse, dans un nouveau tableau.
 
-## Etape 8:  
+### Etape 8:  
 Les pointeurs dans la liste sont nécessaire pour pouvoir faire du polymorphisme. En Java, ce sont toujours des références vers les objets qui sont utilisées.  
 
-## Etape 10:  
+### Etape 10:  
 On met les méthodes de créations d'objets dans la table en read-only avec le mot clé const.
 
 
+## Java  
+  
+### Etape 1:  
+Si on ne met pas de scroll bar, au bout de plusieurs appuis sur les boutons, la fenêtre change de taille à chaque fois que l'on rajoute une nouvelle ligne. :S
+
+
+
+### Etape 2:  
 
 
