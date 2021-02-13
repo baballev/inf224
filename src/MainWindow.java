@@ -90,6 +90,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	
 		
 		client = new Client(Client.DEFAULT_HOST, Client.DEFAULT_PORT);
+		client.send("create abc");
 	}
 
 	@Override
@@ -101,13 +102,13 @@ public class MainWindow extends JFrame implements ActionListener {
 		}
 		else if (e.getSource() == button2 || e.getSource() == menuItem || e.getSource() == menuItem3) {
 			JTextField text_field = new JTextField();
-			Object[] fields = { "Nom du multimédia: ", text_field };
+			Object[] fields = { "Nom du multimedia: ", text_field };
 			int newPane = JOptionPane.showConfirmDialog(null, fields, "Display multimedia", JOptionPane.OK_CANCEL_OPTION);
 			boolean done = false;
 			while (!done) {
 			if (newPane == JOptionPane.YES_OPTION) {
 				String t = text_field.getText();
-				String response = this.client.send("display" + t);
+				String response = this.client.send("display " + t);
 				
 				text_area.setText(text_area.getText() + response + "\n");
 				done = true;
@@ -125,7 +126,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			while (!done) {
 			if (newPane == JOptionPane.YES_OPTION) {
 				String t = text_field.getText();
-				String response = this.client.send("play" + t);
+				String response = this.client.send("play " + t);
 				text_area.setText(text_area.getText() + response + "\n");
 				done = true;
 		
