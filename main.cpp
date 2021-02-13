@@ -45,7 +45,7 @@ public:
     std::cout << "Commande: " << commande << std::endl;
     std::cout << "Query: " << query << std::endl;
     if (commande == "play"){
-
+      super_table->playMedia(query);
     }
     else if (commande == "display") {
       response = super_table->getInfo(query);
