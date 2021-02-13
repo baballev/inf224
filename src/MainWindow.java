@@ -1,11 +1,14 @@
 
 import javax.swing.*;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class MainWindow extends JFrame implements ActionListener {
@@ -27,11 +30,13 @@ public class MainWindow extends JFrame implements ActionListener {
 	JMenuItem menuItem3 = null;
 	JMenuItem menuItem4 = null;
 	
-	public static void main(String[] argv) {
+	Client client = null;
+	
+	public static void main(String[] argv) throws UnknownHostException, IOException {
 		MainWindow window = new MainWindow();
 	}
 	
-	public MainWindow() {
+	public MainWindow() throws UnknownHostException, IOException {
 		menu_bar = new JMenuBar();
 		tool_bar = new JToolBar();
 		menu1 = new JMenu("Menu 1");
@@ -39,13 +44,13 @@ public class MainWindow extends JFrame implements ActionListener {
 		menu2 = new JMenu("Menu 2");
 		add(menu2);
 		
-		menuItem = new JMenuItem("I love INF224");
+		menuItem = new JMenuItem("Display");
 		menuItem.addActionListener(this);
-		menuItem2 = new JMenuItem("Me gusta INF224");
+		menuItem2 = new JMenuItem("Play");
 		menuItem2.addActionListener(this);
-		menuItem3 = new JMenuItem("I love INF224");
+		menuItem3 = new JMenuItem("Display");
 		menuItem3.addActionListener(this);
-		menuItem4 = new JMenuItem("Me gusta INF224");
+		menuItem4 = new JMenuItem("Play");
 		menuItem4.addActionListener(this);
 		
 		menu1.add(menuItem);
@@ -64,9 +69,9 @@ public class MainWindow extends JFrame implements ActionListener {
 		add(text_area, BorderLayout.CENTER);
 		button1 = new JButton("Quitter");
 		add(button1, BorderLayout.PAGE_END);
-		button2 = new JButton("I love INF224");
+		button2 = new JButton("Display");
 		add(button2, BorderLayout.WEST);
-		button3 = new JButton("Me gusta INF224");
+		button3 = new JButton("Play");
 		add(button3, BorderLayout.EAST);
 		
 		button1.addActionListener(this);
@@ -83,6 +88,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		pack();
 		setVisible(true);
 	
+		
+		client = new Client(Client.DEFAULT_HOST, Client.DEFAULT_PORT);
 	}
 
 	@Override
@@ -93,10 +100,39 @@ public class MainWindow extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 		else if (e.getSource() == button2 || e.getSource() == menuItem || e.getSource() == menuItem3) {
-			text_area.setText(text_area.getText() + "I love INF224\n");
+			JTextField text_field = new JTextField();
+			Object[] fields = { "Nom du multimédia: ", text_field };
+			int newPane = JOptionPane.showConfirmDialog(null, fields, "Display multimedia", JOptionPane.OK_CANCEL_OPTION);
+			boolean done = false;
+			while (!done) {
+			if (newPane == JOptionPane.YES_OPTION) {
+				String t = text_field.getText();
+				String response = this.client.send("display" + t);
+				
+				text_area.setText(text_area.getText() + response + "\n");
+				done = true;
+		
+			} else if (newPane == JOptionPane.CANCEL_OPTION || newPane == JOptionPane.CLOSED_OPTION) 
+				done = true;
+			}
 		}
+			
 		else if (e.getSource() == button3 || e.getSource() == menuItem2 || e.getSource() == menuItem4) {
-			text_area.setText(text_area.getText() + "Me gusta INF224\n");
+			JTextField text_field = new JTextField();
+			Object[] fields = { "Nom du multimedia: ", text_field };
+			int newPane = JOptionPane.showConfirmDialog(null, fields, "Play multimedia", JOptionPane.OK_CANCEL_OPTION);
+			boolean done = false;
+			while (!done) {
+			if (newPane == JOptionPane.YES_OPTION) {
+				String t = text_field.getText();
+				String response = this.client.send("play" + t);
+				text_area.setText(text_area.getText() + response + "\n");
+				done = true;
+		
+			} else if (newPane == JOptionPane.CANCEL_OPTION || newPane == JOptionPane.CLOSED_OPTION) 
+				done = true;
+			}
+			
 		} 
 		else {
 			
